@@ -1,38 +1,45 @@
+"""Módulo que define la clase Mascota.
+
+La clase muestra uso de clase, objeto, atributos, métodos y abstracción.
+"""
+
 class Mascota:
-    """Clase que representa una mascota.
-    Atributos:
-        nombre (str): Nombre de la mascota
-        especie (str): Especie de la mascota (ej. 'perro', 'gato')
-        edad (int): Edad en años
+	"""Representa una mascota con nombre, especie y edad.
 
-    Métodos:
-        mostrar_informacion(): Imprime la información de la mascota
-        hacer_sonido(): Imprime un sonido asociado a la especie
-    """
+	Atributos:
+		nombre (str): Nombre de la mascota.
+		especie (str): Especie de la mascota (ej. 'perro', 'gato').
+		edad (int): Edad en años.
+	"""
 
-    def __init__(self, nombre: str, especie: str, edad: int):
-        self.nombre = nombre
-        self.especie = especie.lower()
-        self.edad = edad
+	def __init__(self, nombre: str, especie: str, edad: int) -> None:
+		self.nombre = nombre
+		self.especie = especie.lower()
+		self.edad = edad
 
-    def mostrar_informacion(self) -> None:
-        """Muestra en pantalla los atributos de la mascota."""
-        print(f"Nombre: {self.nombre}")
-        print(f"Especie: {self.especie}")
-        print(f"Edad: {self.edad} años")
+	def mostrar_informacion(self) -> str:
+		"""Devuelve una cadena con la información de la mascota.
 
-    def hacer_sonido(self) -> None:
-        """Imprime un sonido representativo según la especie."""
-        sonidos = {
-            'perro': 'Guau guau! 🐶',
-            'gato': 'Miau miau! 🐱',
-            'pajaro': 'Pío pío! 🐦',
-            'hamster': 'Chis chis! 🐹',
-            'vaca': 'Muuu! 🐮',
-        }
-        sonido = sonidos.get(self.especie, '...sonido indefinido...')
-        print(f"{self.nombre} hace: {sonido}")
+		Este método ejemplifica el encapsulamiento y presentación de datos
+		a través de un método de instancia.
+		"""
+		return f"Nombre: {self.nombre} | Especie: {self.especie} | Edad: {self.edad} años"
 
-    def __str__(self) -> str:
-        return f"Mascota(nombre={self.nombre}, especie={self.especie}, edad={self.edad})"
+	def hacer_sonido(self) -> str:
+		"""Devuelve el sonido que hace la mascota según su especie.
+
+		Implementa una abstracción simple: no hace falta conocer cómo se
+		determina el sonido, sólo usar el método.
+		"""
+		sonidos = {
+			'perro': '¡Guau! 🐶',
+			'gato': '¡Miau! 🐱',
+			'pajaro': '¡Pío! 🐦',
+			'pez': '... (silencio, un pez no hace sonido audible)',
+		}
+		return sonidos.get(self.especie, 'Sonido desconocido')
+
+	def __str__(self) -> str:  # Representación amigable
+		return self.mostrar_informacion()
+
 

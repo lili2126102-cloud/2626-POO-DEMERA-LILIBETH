@@ -1,21 +1,27 @@
+
+"""Programa principal que crea objetos de la clase Mascota y muestra su información.
+
+Se crean al menos dos objetos y se ejecutan los métodos definidos en la clase.
+"""
+
 from mascota import Mascota
 
 
-def main():
-    # Crear al menos dos objetos de la clase Mascota
-    mascota1 = Mascota('Luna', 'Gato', 3)
-    mascota2 = Mascota('Max', 'Perro', 5)
+def main() -> None:
+	# Crear al menos dos mascotas
+	mascota1 = Mascota("Firulais", "Perro", 4)
+	mascota2 = Mascota("Misu", "Gato", 2)
+	mascota3 = Mascota("Nemo", "Pez", 1)  # opcional, tercer objeto
 
-    mascotas = [mascota1, mascota2]
+	mascotas = [mascota1, mascota2, mascota3]
 
-    # Ejecutar los métodos definidos y mostrar la información de cada objeto
-    for m in mascotas:
-        print('-' * 30)
-        m.mostrar_informacion()
-        m.hacer_sonido()
-    print('-' * 30)
+	# Ejecutar métodos y mostrar información
+	for m in mascotas:
+		print(m.mostrar_informacion())
+		print("-> Sonido:", m.hacer_sonido())
+		print('-' * 40)
 
 
 if __name__ == '__main__':
-    main()
+	main()
 
