@@ -135,5 +135,5 @@ La POO es el paradigma recomendado para proyectos profesionales y aplicaciones c
 
 **Fecha de Desarrollo:** Junio 2026  
 **Curso:** Programación Orientada a Objetos  
-**Institución:** [Universidad]
+**Institución:** Universidad Estatal Amazónica
 
