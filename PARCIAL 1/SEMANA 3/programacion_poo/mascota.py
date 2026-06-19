@@ -8,8 +8,8 @@ class Mascota:
 
 	Atributos:
 		nombre (str): Nombre de la mascota.
-		especie (str): Especie de la mascota (ej. 'perro', 'gato').
-		edad (int): Edad en años.
+		Especie (str): Especie de la mascota (ej. 'perro', 'gato').
+		Edad (int): Edad en años.
 	"""
 
 	def __init__(self, nombre: str, especie: str, edad: int) -> None:
