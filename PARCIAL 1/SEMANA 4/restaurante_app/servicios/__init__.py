@@ -1,2 +1,4 @@
-# Paquete servicios - contiene las clases que gestionan las operaciones del restaurante
+"""
+Paquete de servicios que contiene la lógica de negocio del sistema.
+"""
 

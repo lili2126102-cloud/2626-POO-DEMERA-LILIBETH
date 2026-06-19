@@ -1,47 +1,99 @@
-# Clase Producto - representa un plato, bebida o producto disponible en el restaurante
+"""
+Módulo que define la clase Producto para representar los artículos
+que se ofrecen en el restaurante.
+"""
+
 
 class Producto:
     """
-    Representa un producto disponible en el restaurante LYDIA.
-    Contiene información como nombre, tipo, precio y disponibilidad.
+    Clase que representa un producto disponible en el restaurante.
+
+    Atributos:
+        id (int): Identificador único del producto
+        nombre (str): Nombre del producto
+        descripcion (str): Descripción del producto
+        precio (float): Precio del producto
+        categoria (str): Categoría del producto (plato, bebida, postre)
+        disponible (bool): Indica si el producto está disponible
     """
 
-    def __init__(self, nombre, tipo, precio, disponible=True):
+    def __init__(self, id, nombre, descripcion, precio, categoria):
         """
-        Constructor de la clase Producto.
+        Inicializa una instancia de Producto.
 
-        Parámetros:
-        - nombre: nombre del producto (str)
-        - tipo: categoría del producto - 'plato', 'bebida', 'postre' (str)
-        - precio: precio unitario del producto en dólares (float)
-        - disponible: indicador de disponibilidad del producto (bool)
+        Args:
+            id (int): Identificador único del producto
+            nombre (str): Nombre del producto
+            descripcion (str): Descripción del producto
+            precio (float): Precio del producto
+            categoria (str): Categoría del producto
         """
+        self.id = id
         self.nombre = nombre
-        self.tipo = tipo
+        self.descripcion = descripcion
         self.precio = precio
-        self.disponible = disponible
+        self.categoria = categoria
+        self.disponible = True
 
-    def __str__(self):
-        """
-        Retorna una representación en texto del producto.
-        Muestra nombre, tipo, precio y estado de disponibilidad.
-        """
-        estado = "Disponible" if self.disponible else "No disponible"
-        return f"[{self.tipo.upper()}] {self.nombre} - ${self.precio:.2f} ({estado})"
+    def get_id(self):
+        """Retorna el ID del producto."""
+        return self.id
+
+    def get_nombre(self):
+        """Retorna el nombre del producto."""
+        return self.nombre
+
+    def get_descripcion(self):
+        """Retorna la descripción del producto."""
+        return self.descripcion
+
+    def get_precio(self):
+        """Retorna el precio del producto."""
+        return self.precio
+
+    def get_categoria(self):
+        """Retorna la categoría del producto."""
+        return self.categoria
+
+    def is_disponible(self):
+        """Retorna si el producto está disponible."""
+        return self.disponible
 
     def cambiar_disponibilidad(self, disponible):
         """
-        Modifica el estado de disponibilidad del producto.
+        Cambia el estado de disponibilidad del producto.
 
-        Parámetro:
-        - disponible: nuevo estado de disponibilidad (bool)
+        Args:
+            disponible (bool): Nuevo estado de disponibilidad
         """
         self.disponible = disponible
-        return f"Disponibilidad de {self.nombre} actualizada a: {disponible}"
 
-    def obtener_descripcion(self):
+    def actualizar_precio(self, nuevo_precio):
         """
-        Retorna una descripción detallada del producto.
+        Actualiza el precio del producto.
+
+        Args:
+            nuevo_precio (float): Nuevo precio del producto
         """
-        return f"Producto: {self.nombre}, Tipo: {self.tipo}, Precio: ${self.precio:.2f}"
+        if nuevo_precio > 0:
+            self.precio = nuevo_precio
+        else:
+            print("Error: El precio debe ser mayor a 0")
+
+    def __str__(self):
+        """Retorna una representación en texto del producto."""
+        estado = "Disponible" if self.disponible else "No disponible"
+        return f"Producto: {self.nombre} | Precio: ${self.precio:.2f} | Categoría: {self.categoria} | Estado: {estado}"
+
+    def mostrar_informacion(self):
+        """Muestra la información del producto de forma formateada."""
+        estado = "Disponible" if self.disponible else "No disponible"
+        print(f"\n{'='*50}")
+        print(f"ID: {self.id}")
+        print(f"Nombre: {self.nombre}")
+        print(f"Descripción: {self.descripcion}")
+        print(f"Precio: ${self.precio:.2f}")
+        print(f"Categoría: {self.categoria}")
+        print(f"Estado: {estado}")
+        print(f"{'='*50}")
 
