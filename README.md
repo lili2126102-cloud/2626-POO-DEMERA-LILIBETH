@@ -1,169 +1,99 @@
-# Programación Orientada a Objetos (POO)
+# Programación Orientada a Objetos (POO) - Semana 8
 
 ## Información del Estudiante
 * **Nombre Completo:** LILIBETH DEMERA
 * **Asignatura:** Programación Orientada a Objetos (2626)
 * **Semestre:** Segundo Semestre
-* **Institución:** Universidad / Instituto Educativo
-* **Proyectos Incluidos:** Parcial 1 y prácticas adicionales
+* **Institución:** UEA - Universidad Estatal
 
 ---
 
-## 📚 Resumen del Curso
-Este repositorio contiene los trabajos, proyectos y prácticas desarrollados durante el curso de **Programación Orientada a Objetos**. El objetivo general es consolidar el entendimiento de los pilares fundamentales de la POO mediante la implementación práctica de aplicaciones modulares, seguras y escalables en Python.
+## 🍽️ Descripción del Sistema: restaurante_app (Mejorado)
+El proyecto **restaurante_app** es una aplicación de consola en Python diseñada para gestionar los productos, bebidas y clientes de un restaurante de manera modular. En esta versión mejorada correspondiente a la Actividad de la Semana 8, se ha reestructurado el sistema completo aplicando tres de los principios fundamentales de diseño **SOLID**:
+1. **Responsabilidad Única (SRP)**
+2. **Abierto/Cerrado (OCP)**
+3. **Sustitución de Liskov (LSP)**
 
-### Objetivos de Aprendizaje
-* Comprender y aplicar los tres pilares fundamentales de la POO: **Herencia**, **Encapsulación** y **Polimorfismo**
-* Diseñar arquitecturas modulares y mantenibles utilizando paquetes y módulos en Python
-* Implementar patrones de diseño para resolver problemas reales de programación
-* Aplicar reglas de validación y manejo de datos mediante encapsulación
-* Desarrollar soluciones escalables que faciliten el crecimiento y mantenimiento del código
+El programa cuenta con un menú interactivo y dinámico que soporta colores ANSI para destacar estados de éxito, error y advertencia, además de incluir validaciones robustas interactivas en bucles que permiten al usuario corregir datos ingresados erróneamente sin que la aplicación se detenga o reinicie.
 
 ---
 
-## Descripción del Sistema Desarrollado - restaurante_app
-El sistema **restaurante_app** es una aplicación modular en Python diseñada para administrar el menú de un restaurante. Permite registrar diferentes tipos de productos del restaurante, como comidas (**Platillos**) y líquidos (**Bebidas**). El sistema demuestra la aplicación práctica de los tres pilares fundamentales de la Programación Orientada a Objetos (POO): **Herencia**, **Encapsulación** y **Polimorfismo**, en una arquitectura modular limpia y mantenible.
-
----
-
-## 🏗️ Estructura del Proyecto General
+## 🏗️ Estructura del Proyecto
+El proyecto se organiza de forma modular respetando la estructura de paquetes y módulos requerida:
 
 ```
 2626-POO-DEMERA-LILIBETH/
-├── PARCIAL 1/
-│   └── restaurante_app/        # Proyecto principal del parcial 1
-│       ├── modelos/
-│       │   ├── __init__.py
-│       │   ├── producto.py
-│       │   ├── platillo.py
-│       │   └── bebida.py
-│       ├── servicios/
-│       │   ├── __init__.py
-│       │   └── restaurante.py
-│       └── main.py
-├── README.md                   # Este archivo
-└── [Otros ejercicios y prácticas del curso]
+├── restaurante_app/
+│   ├── modelos/
+│   │   ├── __init__.py
+│   │   ├── producto.py
+│   │   ├── bebida.py
+│   │   └── cliente.py
+│   ├── servicios/
+│   │   ├── __init__.py
+│   │   └── restaurante.py
+│   └── main.py
+└── README.md
 ```
 
 ---
 
-## 📋 Estructura del Proyecto - restaurante_app
-El proyecto se organiza en paquetes y módulos según la siguiente estructura:
+## 📋 Responsabilidad de cada Clase y Componente
 
-```
-restaurante_app/
-├── modelos/
-│   ├── __init__.py      # Inicializa el paquete de modelos
-│   ├── producto.py      # Clase padre (Producto)
-│   ├── platillo.py      # Clase hija (Platillo)
-│   └── bebida.py        # Clase hija (Bebida)
-├── servicios/
-│   ├── __init__.py      # Inicializa el paquete de servicios
-│   └── restaurante.py   # Clase de servicio que administra la lista de productos
-└── main.py              # Punto de arranque y ejecución de pruebas del sistema
-```
-
-### Responsabilidad de cada componente:
-* **`modelos/producto.py`**: Define la clase general `Producto`, la cual posee atributos comunes (`nombre`, `__precio` y `disponible`), además de los métodos de acceso y modificación para el precio.
-* **`modelos/platillo.py`**: Define la clase `Platillo`, agregando el atributo específico de calorías (`calorias` en kcal).
-* **`modelos/bebida.py`**: Define la clase `Bebida`, agregando el atributo específico de volumen (`volumen` en ml).
-* **`servicios/restaurante.py`**: Define la clase `Restaurante`, la cual contiene una lista privada de productos y el método de negocio para presentarlos de manera polimórfica.
-* **`main.py`**: Instancia los objetos, prueba las reglas de encapsulación (intentos de precios inválidos y válidos) y ejecuta la presentación del menú.
+* **`modelos/producto.py` (`Producto`)**:
+  Representa los datos comunes de cualquier producto del restaurante (código, nombre, categoría y precio). Aplica encapsulación mediante propiedades (`@property` y `@setter`) para controlar la lectura y modificación de sus atributos con validaciones que evitan valores vacíos o numéricos menores o iguales a cero. Define el método `mostrar_informacion()`.
+* **`modelos/bebida.py` (`Bebida`)**:
+  Clase especializada que hereda de `Producto`. Incorpora atributos específicos (`tamano` y `tipo_envase`) con sus correspondientes getters y setters. Sobrescribe el método `mostrar_informacion()` invocando al método de la clase padre mediante `super().mostrar_informacion()` y sumando sus propios detalles.
+* **`modelos/cliente.py` (`Cliente`)**:
+  Clase independiente encargada únicamente de representar la información de un cliente (identificación, nombre y correo). Valida que los datos ingresados no estén vacíos y que el correo electrónico contenga un formato elemental (`@`). Define su propio método `mostrar_informacion()`.
+* **`servicios/restaurante.py` (`Restaurante`)**:
+  Clase de servicio encargada de administrar las colecciones en memoria de productos y clientes. Contiene los métodos para registrar y listar los objetos, validando reglas de negocio tales como evitar códigos de producto duplicados e identificaciones de clientes repetidas.
+* **`main.py`**:
+  Punto de entrada de la aplicación. Coordina el menú interactivo, la entrada de datos de consola mediante `input()`, la creación de objetos y las llamadas a los métodos del servicio `Restaurante`. Contiene el control de excepciones de validación en tiempo de ejecución.
 
 ---
 
-## 💡 Principios de POO Implementados
-
-### 1. Herencia
-Se implementó una relación de jerarquía lógica donde `Producto` actúa como clase base (padre), y `Platillo` y `Bebida` actúan como subclases (hijas):
-* **Atributos comunes en la clase padre (`Producto`):** `nombre`, `__precio`, `disponible`.
-* **Atributos específicos en las clases hijas:**
-  * `Platillo` añade `calorias` (medidas en kcal).
-  * `Bebida` añade `volumen` (medido en ml).
-* Se utiliza la función `super().__init__(nombre, precio, disponible)` en los constructores de las clases hijas para delegar la inicialización de los atributos comunes a la clase padre.
-* Este enfoque permite reutilizar código y mantener una estructura lógica y coherente de las clases.
-
-### 2. Encapsulación
-El precio de los productos se protege aplicando encapsulación mediante el atributo privado `__precio` (con doble guion bajo) en la clase `Producto`:
-* **Acceso:** Se lee a través del método getter `obtener_precio()`.
-* **Modificación y Validación:** Se modifica mediante el método setter `cambiar_precio(nuevo_precio)`.
-* **Regla de Validación:** El setter valida que el precio sea estrictamente mayor que cero (`nuevo_precio > 0`). Si se introduce un valor negativo o cero, la modificación es rechazada, se imprime un mensaje informativo del error y se mantiene el precio anterior, protegiendo la consistencia de los datos del sistema.
-* Este mecanismo garantiza que los datos internos del objeto no se alteren de forma accidental o maliciosa.
-
-### 3. Polimorfismo
-El polimorfismo se demuestra mediante el método `mostrar_informacion()`:
-* La clase padre `Producto` define una implementación base de `mostrar_informacion()`.
-* Las clases hijas `Platillo` y `Bebida` sobrescriben (`override`) este método para incorporar sus detalles exclusivos (`calorias` y `volumen` respectivamente).
-* Al recorrer la lista de productos registrados dentro de la clase `Restaurante` (`mostrar_productos()`), se llama a `producto.mostrar_informacion()` para cada elemento. Python resuelve en tiempo de ejecución cuál método ejecutar según el tipo de objeto real de la iteración.
-* Esto permite que el servicio imprima correctamente la información formateada para cualquier tipo de producto sin necesidad de comprobar manualmente su tipo mediante condicionales `if/else`.
-* El polimorfismo facilita la extensión del sistema para nuevos tipos de productos sin modificar el código existente.
+## 💡 Relación entre Producto y Bebida (Herencia y Polimorfismo)
+La clase `Bebida` hereda de `Producto` porque una bebida **es un** producto del restaurante. Al aplicar herencia, se reutilizan atributos como el código, nombre, categoría y precio.
+* **Polimorfismo y LSP:** La colección de productos de la clase `Restaurante` (`self.productos`) almacena tanto objetos `Producto` como `Bebida` de manera unificada. En el método `listar_productos()`, el servicio recorre la lista y ejecuta `producto.mostrar_informacion()`. Debido al polimorfismo, cada objeto se comporta de acuerdo con su clase real en tiempo de ejecución (mostrando los detalles correspondientes), sin necesidad de que el servicio pregunte si el objeto es un `Producto` o una `Bebida`.
 
 ---
 
-## 🔍 Aplicación de Principios de POO
+## 🎯 Principios SOLID Aplicados
+
+### 1. S - Responsabilidad Única (Single Responsibility Principle)
+Cada clase tiene un rol claro y delimitado. Los modelos se encargan de representar y validar los datos de sus correspondientes entidades; la clase de servicio `Restaurante` centraliza la gestión de las listas y la validación de unicidad; y `main.py` maneja exclusivamente el flujo de la consola y la interacción directa con el usuario.
+
+### 2. O - Abierto/Cerrado (Open/Closed Principle)
+El diseño del software permite agregar nuevas especializaciones de productos (como postres, combos, promociones) heredando de `Producto` sin modificar el código de la clase de servicio `Restaurante` ni el del listado polimórfico. El sistema está abierto a la extensión pero cerrado a la modificación.
+
+### 3. L - Sustitución de Liskov (Liskov Substitution Principle)
+Los objetos de la subclase `Bebida` pueden reemplazar a los objetos de la superclase `Producto` sin alterar la corrección ni el comportamiento esperado del sistema. `Restaurante` procesa y lista a todos bajo la interfaz común de `Producto` sin que se generen errores o inconsistencias.
 
 ---
 
-## 🎯 Reflexión sobre la POO Modular en Python
-La aplicación de los principios de la Programación Orientada a Objetos en una estructura de carpetas modular resulta de vital importancia para el desarrollo de software profesional. 
-
-### Beneficios de la Arquitectura Modular:
-* **Organización y Legibilidad:** Separar el dominio de negocio en subcarpetas (`modelos` y `servicios`) permite localizar y modificar el código de forma intuitiva, reduciendo el acoplamiento y facilitando el trabajo en equipo.
-* **Seguridad y Control:** La encapsulación garantiza que los datos sensibles, como los precios de los productos, no se alteren de forma accidental o maliciosa con valores ilógicos (como números negativos), centralizando la lógica de validación.
-* **Mantenibilidad y Escalabilidad:** Si en el futuro el restaurante añade nuevos tipos de productos (por ejemplo, combos promocionales o souvenirs), solo se requerirá crear un nuevo archivo bajo `modelos/` que herede de `Producto`, sin necesidad de alterar las clases del servicio ni la lógica existente.
-* **Reutilización de Código:** La herencia permite que los atributos y métodos comunes se definan una sola vez en la clase padre, evitando duplicación y facilitando cambios globales.
-* **Testabilidad:** Una estructura modular permite crear pruebas unitarias independientes para cada componente, garantizando mayor confiabilidad.
-
----
-
-## 🚀 Cómo Ejecutar el Proyecto
+## 🚀 Instrucciones de Ejecución
 
 ### Requisitos:
-* Python 3.7 o superior instalado en el sistema
-* Acceso a una terminal o línea de comandos
+* Python 3.8 o superior instalado en el sistema.
+* Terminal que soporte secuencias de escape ANSI (como PowerShell en Windows 10/11, terminal en Linux/macOS).
 
-### Pasos de Ejecución:
-1. Navega al directorio del proyecto:
+### Pasos de ejecución:
+1. Abra una terminal en el directorio raíz del proyecto.
+2. Acceda a la carpeta del restaurante:
    ```bash
-   cd PARCIAL\ 1/restaurante_app
+   cd restaurante_app
    ```
-
-2. Ejecuta el archivo principal:
+3. Ejecute el archivo principal:
    ```bash
    python main.py
    ```
 
-3. El programa creará instancias de productos (Platillos y Bebidas), realizará pruebas de encapsulación y mostrará el menú completo del restaurante.
+El programa se iniciará cargando datos iniciales predeterminados (Lasaña de Carne, Jugo de Mora y un Cliente de prueba) para que pueda probar la opción de listado polimórfico de manera inmediata.
 
 ---
 
-## 📖 Conceptos Clave Aprendidos
-
-### Paquetes y Módulos en Python:
-* Los paquetes (`modelos/`, `servicios/`) contienen archivos `__init__.py` que los declaran como paquetes importables.
-* Los módulos pueden importarse de forma relativa o absoluta, permitiendo una organización clara del código.
-
-### Métodos Especiales:
-* `__init__()`: Constructor que inicializa los atributos del objeto.
-* `__str__()` (implícito): Utilizado para representación legible del objeto.
-* Métodos con prefijo `__` (doble guion bajo): Atributos privados protegidos de acceso directo externo.
-
-### Validación de Datos:
-* Los setters implementan reglas de validación que garantizan la integridad de los datos.
-* La validación centralizada en una sola ubicación facilita el mantenimiento y reduce errores.
-
----
-
-## 📝 Notas Finales
-Este proyecto representa un caso de uso práctico y realista de los conceptos de POO. La arquitectura modular utilizada es similar a la empleada en proyectos profesionales de mayor envergadura. El código está diseñado para ser fácilmente extensible, permitiendo agregar nuevas funcionalidades sin comprometer la integridad del sistema existente.
-
----
-
-## 📞 Contacto
-* **Estudiante:** LILIBETH DEMERA
-* **Asignatura:** Programación Orientada a Objetos (2626)
-* **Período:** Segundo Semestre
-
----
-
-## ✅ Reflexión sobre la POO Modular en Python
+## 🧠 Reflexión sobre la Importancia de Diseñar Proyectos Mantenibles
+Diseñar proyectos de manera modular y estructurada empleando buenas prácticas de POO y principios de diseño SOLID es fundamental para el éxito de cualquier software en el mundo real. 
+* **Reducción de Deuda Técnica:** Facilita la legibilidad y la escalabilidad del sistema, permitiendo que varios desarrolladores colaboren de manera simultánea en diferentes módulos (modelos, vistas o controladores) sin interferir entre sí.
+* **Seguridad ante Cambios:** Si en el futuro cambian las reglas de negocio o los atributos de una bebida, los cambios se concentran en `bebida.py`, sin peligro de romper la lógica de registro o el menú de consola. Esto ahorra tiempo de depuración y disminuye drásticamente el costo de mantenimiento a lo largo del tiempo.
