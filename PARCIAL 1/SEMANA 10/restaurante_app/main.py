@@ -336,7 +336,18 @@ def main() -> None:
         mi_restaurante.actualizar_catalogo_productos(productos_cargados)
         print(f"\033[92m[INFO] Se cargaron {len(productos_cargados)} productos desde '{ruta_prod}'.\033[0m")
     except FileNotFoundError:
-        print("\033[93m[INFO] Archivo de productos no encontrado. Se iniciará con catálogo de productos vacío.\033[0m")
+        # Si no existe productos.json, cargamos productos de ejemplo por defecto la primera vez
+        print("\033[93m[INFO] Archivo de productos no encontrado. Cargando productos por defecto.\033[0m")
+        try:
+            mi_restaurante.registrar_producto(Producto("P100", "Bife de Chorizo", "Carnes", 18.90))
+            mi_restaurante.registrar_producto(Producto("P200", "Limonada Imperial", "Bebidas", 3.50))
+            mi_restaurante.registrar_producto(Producto("P300", "Tarta de Tres Leches", "Postres", 4.50))
+            mi_restaurante.registrar_producto(Producto("P400", "Costillas BBQ", "Carnes", 22.00))
+            # Guardamos para la próxima vez
+            archivo_servicio.guardar_productos(mi_restaurante.productos)
+            print("\033[92m[INFO] Productos por defecto guardados exitosamente.\033[0m")
+        except Exception as e:
+            print(f"\033[91m[ERROR] No se pudieron registrar/guardar los productos por defecto: {e}\033[0m")
     except json.JSONDecodeError as e:
         print(f"\033[91m[ERROR] Formato JSON inválido en productos.json. Iniciando vacío.\nDetalle: {e}\033[0m")
         pausar()
@@ -361,8 +372,9 @@ def main() -> None:
             mi_restaurante.registrar_usuario(Usuario("1700000002", "Juan Pérez", "juan.perez@gourmet.com"))
             # Guardamos para la próxima vez
             archivo_servicio.guardar_usuarios(mi_restaurante.usuarios)
-        except Exception:
-            pass
+            print("\033[92m[INFO] Usuarios por defecto guardados exitosamente.\033[0m")
+        except Exception as e:
+            print(f"\033[91m[ERROR] No se pudieron registrar/guardar los usuarios por defecto: {e}\033[0m")
         pausar("Presione Enter para iniciar el menú...")
     except json.JSONDecodeError as e:
         print(f"\033[91m[ERROR] Formato JSON inválido en usuarios.json. Iniciando vacío.\nDetalle: {e}\033[0m")
