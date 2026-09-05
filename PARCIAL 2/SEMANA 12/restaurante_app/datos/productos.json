@@ -1,0 +1,30 @@
+[
+    {
+        "codigo": "P100",
+        "nombre": "Bife de Chorizo",
+        "categoria": "Carnes",
+        "precio": 18.9,
+        "stock": 15
+    },
+    {
+        "codigo": "P200",
+        "nombre": "Limonada Imperial",
+        "categoria": "Bebidas",
+        "precio": 3.5,
+        "stock": 50
+    },
+    {
+        "codigo": "P300",
+        "nombre": "Tarta de Tres Leches",
+        "categoria": "Postres",
+        "precio": 4.5,
+        "stock": 10
+    },
+    {
+        "codigo": "P400",
+        "nombre": "Costillas BBQ",
+        "categoria": "Carnes",
+        "precio": 22.0,
+        "stock": 8
+    }
+]
