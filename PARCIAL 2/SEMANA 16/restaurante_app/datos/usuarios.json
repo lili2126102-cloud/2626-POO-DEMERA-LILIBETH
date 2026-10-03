@@ -1,0 +1,23 @@
+[
+    {
+        "identificacion": "1700000001",
+        "nombre": "Lilibeth Demera",
+        "correo": "lilibeth.d@gourmet.com",
+        "clave": "1234",
+        "rol": "Administrador"
+    },
+    {
+        "identificacion": "1700000002",
+        "nombre": "Juan Pérez",
+        "correo": "juan.perez@gourmet.com",
+        "clave": "admin123",
+        "rol": "Empleado"
+    },
+    {
+        "identificacion": "1700000003",
+        "nombre": "María López",
+        "correo": "maria.lopez@gourmet.com",
+        "clave": "gourmet2026",
+        "rol": "Cliente"
+    }
+]
