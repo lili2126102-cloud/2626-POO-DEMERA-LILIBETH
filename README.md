@@ -1,70 +1,85 @@
-# restaurante_app - Programación Orientada a Objetos (Semana 6)
+# Programación Orientada a Objetos (POO) - Semana 9
 
 ## Información del Estudiante
 * **Nombre Completo:** LILIBETH DEMERA
-* **Asignatura:** Programación Orientada a Objetos
-* **Semana:** Semana 6
-* **Parcial:** Parcial 1
+* **Asignatura:** Programación Orientada a Objetos (2626)
+* **Semestre:** Segundo Semestre
+* **Institución:** UEA - Universidad Estatal
 
 ---
 
-## Descripción del Sistema Desarrollado
-El sistema **restaurante_app** es una aplicación modular en Python diseñada para administrar el menú de un restaurante. Permite registrar diferentes tipos de productos del restaurante, como comidas (**Platillos**) y líquidos (**Bebidas**). El sistema demuestra la aplicación práctica de los tres pilares fundamentales de la Programación Orientada a Objetos (POO): **Herencia**, **Encapsulación** y **Polimorfismo**, en una arquitectura modular limpia y mantenible.
+## 🍽️ Descripción del Sistema: restaurante_app (Semana 9)
+El proyecto **restaurante_app** es una aplicación de consola en Python diseñada para gestionar la administración de productos y usuarios de un restaurante de manera modular. En esta versión correspondiente a la **Semana 9**, el enfoque del diseño evoluciona desde el manejo de objetos individuales hacia la administración organizada de colecciones de objetos utilizando las **estructuras de datos fundamentales de Python**:
+1.  **Listas (`list`)** para administración de colecciones dinámicas.
+2.  **Tuplas (`tuple`)** para la representación de datos estables (menú principal).
+3.  **Diccionarios (`dict`)** para el mapeo clave-valor y ruteo dinámico de funciones.
+4.  **Conjuntos (`set`)** para filtrado automático de valores únicos (categorías).
+
+El sistema mantiene una separación de responsabilidades estricta distribuyendo el diseño en **modelos**, **servicios** e **interfaz de consola (main.py)**. Adicionalmente, cuenta con soporte de colores ANSI y control robusto de excepciones y validaciones interactivas.
 
 ---
 
-## Estructura del Proyecto
-El proyecto se organiza en paquetes y módulos según la siguiente estructura:
+## 🏗️ Estructura del Proyecto
+
+El proyecto se organiza de la siguiente manera dentro del espacio de la Semana 9:
 
 ```
-restaurante_app/
-├── modelos/
-│   ├── __init__.py      # Inicializa el paquete de modelos
-│   ├── producto.py      # Clase padre (Producto)
-│   ├── platillo.py      # Clase hija (Platillo)
-│   └── bebida.py        # Clase hija (Bebida)
-├── servicios/
-│   ├── __init__.py      # Inicializa el paquete de servicios
-│   └── restaurante.py   # Clase de servicio que administra la lista de productos
-└── main.py              # Punto de arranque y ejecución de pruebas del sistema
+2626-POO-DEMERA-LILIBETH/
+└── PARCIAL 1/
+    └── SEMANA 9/
+        └── restaurante_app/
+            ├── modelos/
+            │   ├── __init__.py
+            │   ├── producto.py
+            │   └── usuario.py
+            ├── servicios/
+            │   ├── __init__.py
+            │   └── restaurante.py
+            ├── main.py
+            └── README.md
 ```
 
-### Responsabilidad de cada componente:
-* **`modelos/producto.py`**: Define la clase general `Producto`, la cual posee atributos comunes (`nombre`, `__precio` y `disponible`), además de los métodos de acceso y modificación para el precio.
-* **`modelos/platillo.py`**: Define la clase `Platillo`, agregando el atributo específico de calorías (`calorias` en kcal).
-* **`modelos/bebida.py`**: Define la clase `Bebida`, agregando el atributo específico de volumen (`volumen` en ml).
-* **`servicios/restaurante.py`**: Define la clase `Restaurante`, la cual contiene una lista privada de productos y el método de negocio para presentarlos de manera polimórfica.
-* **`main.py`**: Instancia los objetos, prueba las reglas de encapsulación (intentos de precios inválidos y válidos) y ejecuta la presentación del menú.
+---
+
+## 📋 Responsabilidad de cada Clase y Componente
+
+*   **`modelos/producto.py` (`Producto`)**:
+    Representa la información propia de cada producto (código, nombre, categoría y precio). Aplica encapsulación mediante propiedades (`@property` y `@setter`) para controlar la lectura y modificación de sus atributos con validaciones estrictas que evitan valores vacíos o numéricos menores o iguales a cero.
+*   **`modelos/usuario.py` (`Usuario`)**:
+    Representa la información general de una persona registrada en el sistema (identificación, nombre y correo). Permite que el restaurante evolucione posteriormente hacia diferentes tipos de usuarios sin necesidad de una jerarquía compleja por ahora.
+*   **`servicios/restaurante.py` (`Restaurante`)**:
+    Clase de servicio encargada de administrar las colecciones del sistema. Centraliza las búsquedas, registros, actualizaciones, eliminaciones y validaciones de unicidad (evita códigos de productos o identificaciones de usuarios duplicados).
+*   **`main.py`**:
+    Punto de arranque que muestra el menú, solicita datos por consola, captura excepciones de validación en bucles de reintento interactivos y utiliza el servicio mediante un ruteo dinámico basado en diccionarios.
 
 ---
 
-## Aplicación de Principios de POO
+## 📊 Aplicación y Justificación de Estructuras de Datos
 
-### 1. Herencia
-Se implementó una relación de jerarquía lógica donde `Producto` actúa como clase base (padre), y `Platillo` y `Bebida` actúan como subclases (hijas):
-* **Atributos comunes en la clase padre (`Producto`):** `nombre`, `__precio`, `disponible`.
-* **Atributos específicos en las clases hijas:**
-  * `Platillo` añade `calorias`.
-  * `Bebida` añade `volumen`.
-* Se utiliza la función `super().__init__(nombre, precio, disponible)` en los constructores de las clases hijas para delegar la inicialización de los atributos comunes a la clase padre.
-
-### 2. Encapsulación
-El precio de los productos se protege aplicando encapsulación mediante el atributo privado `__precio` (con doble guion bajo) en la clase `Producto`:
-* **Acceso:** Se lee a través del método getter `obtener_precio()`.
-* **Modificación y Validación:** Se modifica mediante el método setter `cambiar_precio(nuevo_precio)`.
-* **Regla de Validación:** El setter valida que el precio sea estrictamente mayor que cero (`nuevo_precio > 0`). Si se introduce un valor negativo o cero, la modificación es rechazada, se imprime un mensaje informativo del error y se mantiene el precio anterior, protegiendo la consistencia de los datos del sistema.
-
-### 3. Polimorfismo
-El polimorfismo se demuestra mediante el método `mostrar_informacion()`.
-* La clase padre `Producto` define una implementación base de `mostrar_informacion()`.
-* Las clases hijas `Platillo` y `Bebida` sobrescriben (`override`) este método para incorporar sus detalles exclusivos (`calorias` y `volumen` respectivamente).
-* Al recorrer la lista de productos registrados dentro de la clase `Restaurante` (`mostrar_productos()`), se llama a `producto.mostrar_informacion()` para cada elemento. Python resuelve en tiempo de ejecución cuál método ejecutar según el tipo de objeto real de la iteración. Esto permite que el servicio imprima correctamente la información formateada para cualquier tipo de producto sin necesidad de comprobar manualmente su tipo mediante condicionales `if/else`.
+| Estructura | Aplicación Concreta en el Sistema | Justificación Técnica |
+| :--- | :--- | :--- |
+| **Lista (`list`)** | Colecciones internas de productos (`self._productos`) y usuarios (`self._usuarios`) en el servicio. | Son colecciones dinámicas y mutables, ideales para registrar (`append`), eliminar (`remove`), actualizar y listar objetos cuyo volumen cambia en tiempo de ejecución. |
+| **Tupla (`tuple`)** | Definición inmutable de opciones del menú principal (`MENU_OPCIONES` en `main.py`). | Colección indexable e inmutable. Protege la información del menú de modificaciones accidentales en tiempo de ejecución, garantizando estabilidad en el flujo visual del programa. |
+| **Diccionario (`dict`)** | Mapeo directo de opción seleccionada a función de UI correspondiente (`acciones_menu` en `main.py`). | Estructura clave-valor ideal para ruteo directo. Elimina los extensos bloques condicionales (`if/elif/else`), facilitando la escalabilidad del menú y mejorando la legibilidad. |
+| **Conjunto (`set`)** | Filtrado y presentación de categorías de productos sin elementos duplicados (`obtener_categorias_unicas`). | Colección de elementos únicos no ordenados. Elimina automáticamente la duplicidad de valores repetidos en las categorías al agregar elementos al catálogo. |
 
 ---
 
-## Reflexión sobre la POO Modular en Python
-La aplicación de los principios de la Programación Orientada a Objetos en una estructura de carpetas modular resulta de vital importancia para el desarrollo de software profesional. 
+## 🚀 Instrucciones de Ejecución
 
-* **Organización y Legibilidad:** Separar el dominio de negocio en subcarpetas (`modelos` y `servicios`) permite localizar y modificar el código de forma intuitiva, reduciendo el acoplamiento y facilitando el trabajo en equipo.
-* **Seguridad y Control:** La encapsulación garantiza que los datos sensibles, como los precios de los productos, no se alteren de forma accidental o maliciosa con valores ilógicos (como números negativos), centralizando la lógica de validación.
-* **Mantenibilidad y Escalabilidad:** Si en el futuro el restaurante añade nuevos tipos de productos (por ejemplo, combos promocionales o souvenirs), solo se requerirá crear un nuevo archivo bajo `modelos/` que herede de `Producto`, sin necesidad de alterar las clases del servicio ni la lógica existente.
+### Requisitos:
+*   Python 3.8 o superior instalado.
+*   Terminal que soporte secuencias de escape ANSI (como PowerShell en Windows 10/11, terminal en Linux/macOS).
+
+### Pasos de ejecución:
+1.  Abra una terminal en el directorio raíz del proyecto.
+2.  Acceda a la carpeta del restaurante para la Semana 9:
+    ```bash
+    cd "PARCIAL 1/SEMANA 9/restaurante_app"
+    ```
+3.  Ejecute el archivo principal:
+    ```bash
+    python main.py
+    ```
+
+El programa se cargará con datos iniciales (4 productos y 2 usuarios de prueba) para que las funciones del sistema puedan visualizarse de forma inmediata.

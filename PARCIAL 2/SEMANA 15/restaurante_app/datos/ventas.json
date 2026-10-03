@@ -1,0 +1,35 @@
+[
+    {
+        "id_venta": "VEN-001",
+        "id_usuario": "1700000001",
+        "nombre_usuario": "Lilibeth Demera",
+        "codigo_producto": "P100",
+        "nombre_producto": "Bife de Chorizo",
+        "precio_unitario": 18.9,
+        "cantidad": 2,
+        "total": 37.8,
+        "fecha": "2026-09-24 13:15:30"
+    },
+    {
+        "id_venta": "VEN-002",
+        "id_usuario": "1700000002",
+        "nombre_usuario": "Juan Pérez",
+        "codigo_producto": "P200",
+        "nombre_producto": "Limonada Imperial",
+        "precio_unitario": 3.5,
+        "cantidad": 3,
+        "total": 10.5,
+        "fecha": "2026-09-25 14:02:10"
+    },
+    {
+        "id_venta": "VEN-003",
+        "id_usuario": "1700000003",
+        "nombre_usuario": "María López",
+        "codigo_producto": "P500",
+        "nombre_producto": "Ceviche Tradicional",
+        "precio_unitario": 14.5,
+        "cantidad": 1,
+        "total": 14.5,
+        "fecha": "2026-09-26 12:45:00"
+    }
+]
